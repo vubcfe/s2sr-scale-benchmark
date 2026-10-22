@@ -1,0 +1,10 @@
+# Shared training recipe for every learned method (paper, Section 3.4).
+iterations: 100000     # upper bound and length of the cosine schedule; early stopping may end earlier
+batch_size: 16
+lr: 1.0e-4
+warmup: 1000
+val_every: 2000
+patience: 10           # validations without improvement of val L1
+amp: true
+workers: 4
+seeds: [0, 1, 2]

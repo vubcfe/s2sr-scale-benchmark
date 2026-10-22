@@ -1,0 +1,17 @@
+# Methods in the P1 benchmark. Learned models are matched to ~1.8 M parameters (+-10 %)
+# so that differences come from design, not size. Check with: python scripts/run.py count-params
+# role: "ranked" methods enter the rank-agreement analyses (RQ1, RQ2); "control" are reported for RQ3/RQ4 only.
+methods:
+  bicubic:       {arch: bicubic, role: ranked}
+  atprk:         {arch: atprk, role: ranked}           # our implementation of Wang et al. (2016), models/atprk.py
+  dsen2:         {arch: dsen2, params: {nf: 128, n_blocks: 6}, role: ranked}
+  dsen2_ca_hpf:  {arch: dsen2, params: {nf: 128, n_blocks: 6, channel_attention: true, high_pass: true}, role: ranked}
+  lfc_guided:    {arch: edsr, params: {nf: 80, n_blocks: 16, guided: true}, lfc: true, role: ranked}
+  edsr_u:        {arch: edsr, params: {nf: 80, n_blocks: 16, guided: false}, role: ranked}
+  edsr_g:        {arch: edsr, params: {nf: 80, n_blocks: 16, guided: true}, role: ranked}
+  rcan_u:        {arch: rcan, params: {nf: 64, n_groups: 5, n_rcab: 4, guided: false}, role: ranked}
+  rcan_g:        {arch: rcan, params: {nf: 64, n_groups: 5, n_rcab: 4, guided: true}, role: ranked}
+  # RQ3 negative control: same input channels as edsr_g, guide spatially decorrelated (rotated 180 deg)
+  edsr_g_scr:    {arch: edsr, params: {nf: 80, n_blocks: 16, guided: true}, scramble_guide: true, role: control}
+  # RQ4: original global DSen2 weights (L1C, github.com/lanha/DSen2), not retrained
+  dsen2_global:  {arch: dsen2_global, weights: weights/dsen2_s2_032_lr_1e-04.hdf5, role: control}

@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "s2sr"
+version = "0.1.0"
+description = "Benchmark of guided super-resolution for Sentinel-2 20 m bands (red-edge, SWIR) at reduced and real resolution"
+requires-python = ">=3.10"
+dependencies = [
+  "torch>=2.1",
+  "numpy",
+  "scipy",
+  "pandas",
+  "pyyaml",
+  "h5py",
+  "tqdm",
+  "rasterio",
+  "pyproj",
+  "shapely",
+  "geopandas",
+]
+
+[project.optional-dependencies]
+download = ["pystac-client", "planetary-computer", "odc-stac", "xarray"]
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,34 @@
+# Study regions for P1. Bounding boxes are lon/lat (EPSG:4326): [min_lon, min_lat, max_lon, max_lat].
+# role: "train" regions are split into train/val/test blocks; "heldout" is test-only (out-of-region).
+# source: "stac" = downloaded by `run.py download` (all three regions; the Dak Ha bbox covers the
+#   coffee points of ViCoffee-S2, doi:10.17632/x72bs74bg6.1, but scenes are downloaded directly).
+# Land cover of each bbox from ESA WorldCover 2021 v2.0.0 (checked 2026-10-11):
+#   mekong_rice : crop 79.8 %, tree 9.4, built 5.7, water 3.7
+#   tayninh     : tree 42.9 %, crop 31.2, grass 12.8, built 7.7, water 4.8   (rubber, sugarcane, cassava)
+#   alternative heldout, not used: Son La / Mai Son [104.00, 21.05, 104.30, 21.35]
+#     tree 45.2 %, grass 33.5, crop 19.4 (northern uplands)
+regions:
+  dakha_coffee:
+    role: train
+    source: stac
+    bbox: [107.80, 14.38, 108.10, 14.68]   # Dak Ha / Dak Mar (Kon Tum), around the ViCoffee-S2 coffee points
+    utm_epsg: 32648
+  mekong_rice:
+    role: train
+    source: stac
+    bbox: [105.15, 10.25, 105.45, 10.55]   # An Giang, Mekong Delta rice
+    utm_epsg: 32648
+  tayninh_mixed:
+    role: heldout
+    source: stac
+    bbox: [106.00, 11.20, 106.30, 11.50]   # Tay Ninh, rubber / sugarcane / cassava
+    utm_epsg: 32648
+
+time_range: ["2021-01-01", "2025-12-31"]   # five years
+# Seasons as used for Dak Ha: dry about Nov-Apr, rainy about May-Oct (similar in the south).
+seasons:
+  dry: [11, 12, 1, 2, 3, 4]
+  rainy: [5, 6, 7, 8, 9, 10]
+max_scene_cloud: 60        # STAC prefilter on eo:cloud_cover (%), whole tile
+max_aoi_cloud: 30          # scene kept if invalid SCL over the AOI is below this (%); patches still need >= 95 % valid
+max_scenes_per_season: 24  # per region and season, lowest AOI cloud first

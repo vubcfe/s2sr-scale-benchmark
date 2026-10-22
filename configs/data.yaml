@@ -1,0 +1,14 @@
+raw_dir: data/raw            # downloaded scenes: <region>/<scene_id>_{10m,20m,scl}.tif
+blocks_dir: data/blocks      # block grids with split assignment (GeoPackage per region)
+patch_dir: data/patches      # HDF5 shards per split
+
+blocks:
+  size_m: 5120
+  buffer_m: 1000             # minimum gap between usable areas of blocks in different splits
+  fractions: {train: 0.70, val: 0.15, test: 0.15}
+  seed: 2026
+
+patches:
+  size_20m: 128              # target patch size in 20 m pixels (2.56 km); guide patch is 256 px at 10 m
+  stride_20m: 64
+  min_valid: 0.95            # minimum fraction of valid SCL pixels in a patch

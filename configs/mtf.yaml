@@ -1,0 +1,26 @@
+# MTF at the Nyquist frequency used for Wald pairs, the consistency protocol (P2), the LFC layer
+# and for aggregating real references to 10 m.
+#
+# Source: ESA Optical MPC, Data Quality Report - Sentinel-2 L1C MSI, December 2022
+# (OMPC.CS.DQR.01.11-2022, issue 82.0), Table 2-5 "S2A and S2B MTF performance assessments
+# performed using products from 2021":
+#                         S2A 2021   S2B 2021   value used (mean)
+#   10 m bands              0.21       0.27       0.24
+#   20 m B5 to B8A          0.27       0.31       0.29
+#   20 m B11 and B12        0.19       0.20       0.195
+# The report gives group means only (per-band values appear only in its Figure 16), and does not
+# cover Sentinel-2C. Report these values and their source in the paper; a sensitivity run with
+# +-0.05 is advisable.
+placeholder: false
+source: "ESA S2 MSI L1C DQR Dec 2022, Table 2-5 (2021 products), mean of S2A and S2B"
+mtf_nyquist:
+  B02: 0.24
+  B03: 0.24
+  B04: 0.24
+  B08: 0.24
+  B05: 0.29
+  B06: 0.29
+  B07: 0.29
+  B8A: 0.29
+  B11: 0.195
+  B12: 0.195
